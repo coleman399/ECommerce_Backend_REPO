@@ -6,7 +6,7 @@ namespace eCommerceStarterCode.Models
     public class Plant
     {
         [Key]
-        public int Id { get; set; }
+        public int PlantId { get; set; }
         public string Name { get; set; }
         public int Price { get; set; }
         public string Description { get; set; }
@@ -15,6 +15,9 @@ namespace eCommerceStarterCode.Models
         public User Review { get; set; }
         [ForeignKey("Category")]
         public string CategoryId { get; set; }
-        public User Category { get; set; }
+        public Category Category { get; set; }
+        [ForeignKey("User")]
+        public string UserId { get; set; }
+        public User User { get; set; }
     }
 }
