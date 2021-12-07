@@ -12,7 +12,11 @@ namespace eCommerceStarterCode.Data
         {
 
         }
-
+        public DbSet<Plant> Plants { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<ShoppingCart> ShoppingCarts { get; set;}
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
