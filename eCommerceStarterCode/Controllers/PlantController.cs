@@ -24,7 +24,7 @@ namespace eCommerceStarterCode.Controllers
         }
         // GET: api/<Plant>
         [HttpGet]
-        public IActionResult  Get()
+        public IActionResult Get()
         {
             var plants = _context.Plants;
             return Ok(plants);
@@ -35,7 +35,7 @@ namespace eCommerceStarterCode.Controllers
         public IActionResult Get(int id)
         {
             var plant = _context.Plants.FirstOrDefault(plant => plant.PlantId == id);
-            if(plant == null)
+            if (plant == null)
             {
                 return NotFound();
             }
@@ -49,7 +49,7 @@ namespace eCommerceStarterCode.Controllers
             _context.Plants.Add(value);
             _context.SaveChanges();
             return StatusCode(201, value);
-            
+
         }
 
         // PUT api/<Plant>/5
