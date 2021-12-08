@@ -56,7 +56,7 @@ namespace eCommerceStarterCode
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                _ = endpoints.MapControllers();
             });
         }
     }

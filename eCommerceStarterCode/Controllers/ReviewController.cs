@@ -29,7 +29,7 @@ namespace eCommerceStarterCode.Controllers
         }
 
         // GET id
-        [HttpGet("{id")]
+        [HttpGet("{id}")]
         public ActionResult Get(int id)
         {
             var review = _context.Reviews.FirstOrDefault(r => r.ReviewId == id);
