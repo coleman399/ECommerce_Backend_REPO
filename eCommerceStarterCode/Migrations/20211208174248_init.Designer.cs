@@ -10,7 +10,7 @@ using eCommerceStarterCode.Data;
 namespace eCommerceStarterCode.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211208162812_init")]
+    [Migration("20211208174248_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -202,7 +202,7 @@ namespace eCommerceStarterCode.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
-                    b.Property<int>("ReviewId")
+                    b.Property<int?>("ReviewId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
@@ -402,9 +402,7 @@ namespace eCommerceStarterCode.Migrations
 
                     b.HasOne("eCommerceStarterCode.Models.Review", "Review")
                         .WithMany()
-                        .HasForeignKey("ReviewId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ReviewId");
 
                     b.HasOne("eCommerceStarterCode.Models.User", "User")
                         .WithMany()

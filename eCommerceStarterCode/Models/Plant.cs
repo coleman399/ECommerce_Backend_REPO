@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System;
 
 namespace eCommerceStarterCode.Models
 {
@@ -12,7 +13,7 @@ namespace eCommerceStarterCode.Models
         public string Description { get; set; }
         
         [ForeignKey("Review")]
-        public int ReviewId { get; set; }
+        public Nullable <int> ReviewId { get; set; }
         public Review Review { get; set; }
         
         [ForeignKey("Category")]
