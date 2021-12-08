@@ -12,8 +12,8 @@ namespace eCommerceStarterCode.Models
         public string UserId { get; set; }
         public User User { get; set; }
         [ForeignKey("Plant")]
-        public string PlantId { get; set; }
-        public Plant Product { get; set; }
+        public int PlantId { get; set; }
+        public Plant Plant { get; set; }
 
     }
 }

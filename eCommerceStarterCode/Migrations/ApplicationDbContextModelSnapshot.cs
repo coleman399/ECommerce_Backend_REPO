@@ -247,10 +247,7 @@ namespace eCommerceStarterCode.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("PlantId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ProductPlantId")
+                    b.Property<int>("PlantId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
@@ -261,7 +258,7 @@ namespace eCommerceStarterCode.Migrations
 
                     b.HasKey("ShoppingCartId");
 
-                    b.HasIndex("ProductPlantId");
+                    b.HasIndex("PlantId");
 
                     b.HasIndex("UserId");
 
@@ -429,15 +426,17 @@ namespace eCommerceStarterCode.Migrations
 
             modelBuilder.Entity("eCommerceStarterCode.Models.ShoppingCart", b =>
                 {
-                    b.HasOne("eCommerceStarterCode.Models.Plant", "Product")
+                    b.HasOne("eCommerceStarterCode.Models.Plant", "Plant")
                         .WithMany()
-                        .HasForeignKey("ProductPlantId");
+                        .HasForeignKey("PlantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("eCommerceStarterCode.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
 
-                    b.Navigation("Product");
+                    b.Navigation("Plant");
 
                     b.Navigation("User");
                 });
