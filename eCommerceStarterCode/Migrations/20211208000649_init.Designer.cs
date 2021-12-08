@@ -10,7 +10,7 @@ using eCommerceStarterCode.Data;
 namespace eCommerceStarterCode.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211207225541_init")]
+    [Migration("20211208000649_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
