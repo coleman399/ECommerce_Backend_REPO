@@ -1,0 +1,627 @@
+{
+	"info": {
+		"_postman_id": "be991ba3-0d04-40ad-a259-68a3ecacb00e",
+		"name": "ASP_NET_eCommerce_Web_API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register_User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\": \"Guy\",\r\n    \"lastname\": \"GuyLName\",\r\n    \"username\": \"Guy\",\r\n    \"password\": \"12345678\",\r\n    \"email\": \"guy@devcodecamp.com\",\r\n    \"phonenumber\": \"777-777-7777\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44394/api/authentication",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44394",
+							"path": [
+								"api",
+								"authentication"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login_User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Guy\",\r\n    \"password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44394/api/authentication/login",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44394",
+							"path": [
+								"api",
+								"authentication",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Examples",
+			"item": [
+				{
+					"name": "Get_Current_User",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikd1eSIsImVtYWlsIjoiZ3V5QGRldmNvZGVjYW1wLmNvbSIsImlkIjoiZjIwMzFlMGMtNTI0Yi00MjRiLWFmYWUtYmQxZjVhN2FkNDVmIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVXNlciIsImV4cCI6MTYzODk5Mjg2OSwiaXNzIjoiZUNvbW1lcmNlV2ViQVBJIiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NTAwMSJ9.f2mlW5vn1wW4Jz7Xvq8nv4OkliT9OTBLhM76lRo7wtQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:44394/api/category",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44394",
+							"path": [
+								"api",
+								"category"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Project",
+			"item": [
+				{
+					"name": "Category",
+					"item": [
+						{
+							"name": "Post Category",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"CategoryName\" : \"Outside\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44394/api/category",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44394",
+									"path": [
+										"api",
+										"category"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Category All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:44394/api/category",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44394",
+									"path": [
+										"api",
+										"category"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Category",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:44394/api/category/1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44394",
+									"path": [
+										"api",
+										"category",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Category By Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:44394/api/category/1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44394",
+									"path": [
+										"api",
+										"category",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Category",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"CategoryName\" : \"Test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44394/api/category/3",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44394",
+									"path": [
+										"api",
+										"category",
+										"3"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Shopping Cart",
+					"item": [
+						{
+							"name": "Post Shopping Cart",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikd1eSIsImVtYWlsIjoiZ3V5QGRldmNvZGVjYW1wLmNvbSIsImlkIjoiZjIwMzFlMGMtNTI0Yi00MjRiLWFmYWUtYmQxZjVhN2FkNDVmIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVXNlciIsImV4cCI6MTYzOTAwNzM5OCwiaXNzIjoiZUNvbW1lcmNlV2ViQVBJIiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NTAwMSJ9.6SVOSc9r3M9z8uq8QO3Cthu0ZMykSioHn75bSb008F0",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Quantity\" : 7,\r\n    \"UserId\": \"f2031e0c-524b-424b-afae-bd1f5a7ad45f\",\r\n    \"PlantId\" : 5\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44394/api/shoppingcart",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44394",
+									"path": [
+										"api",
+										"shoppingcart"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All ShoppingCarts",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikd1eSIsImVtYWlsIjoiZ3V5QGRldmNvZGVjYW1wLmNvbSIsImlkIjoiZjIwMzFlMGMtNTI0Yi00MjRiLWFmYWUtYmQxZjVhN2FkNDVmIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVXNlciIsImV4cCI6MTYzOTAwNzM5OCwiaXNzIjoiZUNvbW1lcmNlV2ViQVBJIiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NTAwMSJ9.6SVOSc9r3M9z8uq8QO3Cthu0ZMykSioHn75bSb008F0",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://localhost:44394/api/shoppingcart/2",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44394",
+									"path": [
+										"api",
+										"shoppingcart",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Shopping Cart By Id",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikd1eSIsImVtYWlsIjoiZ3V5QGRldmNvZGVjYW1wLmNvbSIsImlkIjoiZjIwMzFlMGMtNTI0Yi00MjRiLWFmYWUtYmQxZjVhN2FkNDVmIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVXNlciIsImV4cCI6MTYzOTAwNzM5OCwiaXNzIjoiZUNvbW1lcmNlV2ViQVBJIiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NTAwMSJ9.6SVOSc9r3M9z8uq8QO3Cthu0ZMykSioHn75bSb008F0",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://localhost:44394/api/shoppingcart/1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44394",
+									"path": [
+										"api",
+										"shoppingcart",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Shopping Cart By Id",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikd1eSIsImVtYWlsIjoiZ3V5QGRldmNvZGVjYW1wLmNvbSIsImlkIjoiZjIwMzFlMGMtNTI0Yi00MjRiLWFmYWUtYmQxZjVhN2FkNDVmIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVXNlciIsImV4cCI6MTYzOTAwNzM5OCwiaXNzIjoiZUNvbW1lcmNlV2ViQVBJIiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NTAwMSJ9.6SVOSc9r3M9z8uq8QO3Cthu0ZMykSioHn75bSb008F0",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Quantity\" : 99,\r\n    \"UserId\": \"f2031e0c-524b-424b-afae-bd1f5a7ad45f\",\r\n    \"PlantId\" : 5\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44394/api/shoppingcart/2",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44394",
+									"path": [
+										"api",
+										"shoppingcart",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Plant",
+					"item": [
+						{
+							"name": "Post Plant",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Name\" : \"Flower\",\r\n    \"Price\" : 10,\r\n    \"Description\" : \"I think its yellow\",\r\n    \"ReviewId\" : 1,\r\n    \"CategoryId\" : 1,\r\n    \"UserId\" : \"f2031e0c-524b-424b-afae-bd1f5a7ad45f\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44394/api/plant",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44394",
+									"path": [
+										"api",
+										"plant"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Plants",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:44394/api/plant",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44394",
+									"path": [
+										"api",
+										"plant"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Plant by Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:44394/api/plant/4",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44394",
+									"path": [
+										"api",
+										"plant",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Plant by Id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:44394/api/plant/4",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44394",
+									"path": [
+										"api",
+										"plant",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Plant by Id",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"plantId\": 5,\r\n    \"name\": \"Orange Flower\",\r\n    \"price\": 10,\r\n    \"description\": \"You are now an orange flower\",\r\n    \"reviewId\": 1,\r\n    \"categoryId\": 1,\r\n    \"userId\": \"f2031e0c-524b-424b-afae-bd1f5a7ad45f\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44394/api/plant/5",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44394",
+									"path": [
+										"api",
+										"plant",
+										"5"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Reviews",
+					"item": [
+						{
+							"name": "Post Review",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ReviewText\" : \"This rose is aweful\",\r\n    \"ReviewRating\" : 1,\r\n    \"UserId\": \"f2031e0c-524b-424b-afae-bd1f5a7ad45f\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44394/api/review",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44394",
+									"path": [
+										"api",
+										"review"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Reviews",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:44394/api/review",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44394",
+									"path": [
+										"api",
+										"review"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Review",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:44394/api/review/2",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44394",
+									"path": [
+										"api",
+										"review",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Review Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:44394/api/review/1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44394",
+									"path": [
+										"api",
+										"review",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Review",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ReviewText\" : \"This rose is now a 4/5\",\r\n    \"ReviewRating\" : 4,\r\n    \"UserId\": \"a7b13ce1-1f4c-4253-ad38-b9e77b9a358b\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:44394/api/review/1",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "44394",
+									"path": [
+										"api",
+										"review",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
