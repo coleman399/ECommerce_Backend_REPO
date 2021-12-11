@@ -26,9 +26,9 @@ namespace eCommerceStarterCode.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ShoppingCartId = table.Column<int>(type: "int", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -226,30 +226,42 @@ namespace eCommerceStarterCode.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    ProductId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    PlantId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.ProductId);
+                    table.ForeignKey(
+                        name: "FK_Products_Plants_PlantId",
+                        column: x => x.PlantId,
+                        principalTable: "Plants",
+                        principalColumn: "PlantId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ShoppingCarts",
                 columns: table => new
                 {
                     ShoppingCartId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    PlantId = table.Column<int>(type: "int", nullable: false)
+                    ProductId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ShoppingCarts", x => x.ShoppingCartId);
                     table.ForeignKey(
-                        name: "FK_ShoppingCarts_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
+                        name: "FK_ShoppingCarts_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "ProductId",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ShoppingCarts_Plants_PlantId",
-                        column: x => x.PlantId,
-                        principalTable: "Plants",
-                        principalColumn: "PlantId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -317,19 +329,19 @@ namespace eCommerceStarterCode.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Products_PlantId",
+                table: "Products",
+                column: "PlantId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Reviews_UserId",
                 table: "Reviews",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ShoppingCarts_PlantId",
+                name: "IX_ShoppingCarts_ProductId",
                 table: "ShoppingCarts",
-                column: "PlantId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ShoppingCarts_UserId",
-                table: "ShoppingCarts",
-                column: "UserId");
+                column: "ProductId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -354,6 +366,9 @@ namespace eCommerceStarterCode.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "Plants");

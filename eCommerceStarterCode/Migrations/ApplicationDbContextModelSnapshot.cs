@@ -217,6 +217,26 @@ namespace eCommerceStarterCode.Migrations
                     b.ToTable("Plants");
                 });
 
+            modelBuilder.Entity("eCommerceStarterCode.Models.Product", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("PlantId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductId");
+
+                    b.HasIndex("PlantId");
+
+                    b.ToTable("Products");
+                });
+
             modelBuilder.Entity("eCommerceStarterCode.Models.Review", b =>
                 {
                     b.Property<int>("ReviewId")
@@ -247,20 +267,12 @@ namespace eCommerceStarterCode.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("PlantId")
+                    b.Property<int?>("ProductId")
                         .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ShoppingCartId");
 
-                    b.HasIndex("PlantId");
-
-                    b.HasIndex("UserId");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("ShoppingCarts");
                 });
@@ -316,11 +328,11 @@ namespace eCommerceStarterCode.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ShoppingCartId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
@@ -413,6 +425,17 @@ namespace eCommerceStarterCode.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("eCommerceStarterCode.Models.Product", b =>
+                {
+                    b.HasOne("eCommerceStarterCode.Models.Plant", "Plant")
+                        .WithMany()
+                        .HasForeignKey("PlantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Plant");
+                });
+
             modelBuilder.Entity("eCommerceStarterCode.Models.Review", b =>
                 {
                     b.HasOne("eCommerceStarterCode.Models.User", "User")
@@ -424,19 +447,11 @@ namespace eCommerceStarterCode.Migrations
 
             modelBuilder.Entity("eCommerceStarterCode.Models.ShoppingCart", b =>
                 {
-                    b.HasOne("eCommerceStarterCode.Models.Plant", "Plant")
+                    b.HasOne("eCommerceStarterCode.Models.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("PlantId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductId");
 
-                    b.HasOne("eCommerceStarterCode.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("Plant");
-
-                    b.Navigation("User");
+                    b.Navigation("Product");
                 });
 #pragma warning restore 612, 618
         }

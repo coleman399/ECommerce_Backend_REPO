@@ -23,16 +23,15 @@ namespace eCommerceStarterCode.Controllers
             _context = context;
         }
         //GETS ALL ITEMS IN USERS CART 
-        [HttpGet("{id}"), Authorize]
+        [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-
             var shoppingCart = _context.ShoppingCarts.FirstOrDefault(sc => sc.ShoppingCartId == id);
             return Ok(shoppingCart);
         }
 
         // POST api/shoppingcart
-        [HttpPost, Authorize]
+        [HttpPost]
         public IActionResult Post([FromBody] ShoppingCart value)
         {
             _context.ShoppingCarts.Add(value);
@@ -41,19 +40,17 @@ namespace eCommerceStarterCode.Controllers
         }
 
         //// PATCH api/<ShoppingCartController>/5
-        [HttpPut("{id}"), Authorize]
+        [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] ShoppingCart value)
         {
-
-            var itemInCart = _context.ShoppingCarts.Where(sc => sc.ShoppingCartId == id).FirstOrDefault(sc => sc.UserId == value.UserId);
-
-            itemInCart.Quantity = value.Quantity;
+            var shoppingCart = _context.ShoppingCarts.FirstOrDefault(sc => sc.ShoppingCartId == id);
+            shoppingCart.ProductId = value.ProductId;
             _context.SaveChanges();
-            return Ok(itemInCart);
+            return Ok(shoppingCart);
         }
 
         //// DELETE api/<ShoppingCartController>/5
-        [HttpDelete("{id}"), Authorize]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             var shoppingCart = _context.ShoppingCarts.FirstOrDefault(sc => sc.ShoppingCartId == id);
