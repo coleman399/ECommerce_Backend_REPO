@@ -3,6 +3,7 @@ using eCommerceStarterCode.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace eCommerceStarterCode.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var plants = _context.Plants;
+            var plants = _context.Plants.Include(u => u.User);
             return Ok(plants);
         }
 
@@ -34,7 +35,7 @@ namespace eCommerceStarterCode.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var plant = _context.Plants.FirstOrDefault(plant => plant.PlantId == id);
+            var plant = _context.Plants.Where(p => p.PlantId == id).Include(u => u.User);
             if (plant == null)
             {
                 return NotFound();
@@ -56,25 +57,18 @@ namespace eCommerceStarterCode.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] Plant value)
         {
-            var plant = _context.Plants.FirstOrDefault(plant => plant.PlantId == id);
-            plant.Name = value.Name;
-            plant.Price = value.Price;
-            plant.Description = value.Description;
-            plant.ReviewId = value.ReviewId;
-            plant.CategoryId = value.CategoryId;
-            plant.UserId = value.UserId;
+            _context.Plants.Update(value);
             _context.SaveChanges();
-            return Ok(plant);
+            return Ok(value);
         }
 
         // DELETE api/<Plant>/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var plant = _context.Plants.FirstOrDefault(plant => plant.PlantId == id);
-            _context.Plants.Remove(plant);
+            var plant = _context.Plants.Where(p => p.PlantId == id).SingleOrDefault();
             _context.SaveChanges();
-            return Ok();
+            return StatusCode(200, plant);
         }
     }
 }

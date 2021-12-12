@@ -3,6 +3,7 @@ using eCommerceStarterCode.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,60 +16,59 @@ namespace eCommerceStarterCode.Controllers
     [ApiController]
     public class ReviewController : ControllerBase
     {
-        public ApplicationDbContext _context;
+        public readonly ApplicationDbContext _context;
+
         public ReviewController(ApplicationDbContext context)
         {
             _context = context;
         }
+        // GET: api/reviews
         [HttpGet]
-        // GET
         public IActionResult Get()
         {
-            var reviews = _context.Reviews;
+            var reviews = _context.Reviews.Include(u => u.User).Include(p => p.Plant);
             return Ok(reviews);
         }
-
-        // GET id
+        // GET api/reviews/[productID]
+        //Gets all Reviews for a Certain ProductID
         [HttpGet("{id}")]
-        public ActionResult Get(int id)
+        public IActionResult Get(int id)
         {
-            var review = _context.Reviews.FirstOrDefault(r => r.ReviewId == id);
-            if (review == null)
-            {
-                return NotFound();
-            }
+            var productReviews = _context.Reviews.Where(r => r.ReviewId == id).Include(u => u.User).Include(p => p.Plant);
+
+            return StatusCode(200, productReviews);
+        }
+        // POST api/reviews
+        [HttpPost]
+        public IActionResult Post([FromBody] Review review)
+        {
+            _context.Reviews.Add(review);
+            _context.SaveChanges();
             return Ok(review);
         }
-
-        // POST
-        [HttpPost]
-        public IActionResult Post([FromBody] Review value)
-        {
-            _context.Reviews.Add(value);
-            _context.SaveChanges();
-            return StatusCode(201, value);
-        }
-
-        // PUT
+        // PUT api/reviews
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] Review value)
         {
-            var review = _context.Reviews.FirstOrDefault(r => r.ReviewId==id);
-            review.ReviewText = value.ReviewText;
-            review.ReviewRating = value.ReviewRating;
-            review.UserId = value.UserId;
+            var review = _context.Reviews.Where(r => r.ReviewId == id).SingleOrDefault();
+            review = new Review()
+            {
+                ReviewId = id,
+                ReviewText = value.ReviewText,
+                ReviewRating = value.ReviewRating,
+                PlantId = value.PlantId
+            };
             _context.SaveChanges();
-            return Ok(review);
+            return Ok(value);
         }
-
-        // DELETE
+        // DELETE api/review
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var plant = _context.Reviews.FirstOrDefault(r => r.ReviewId == id);
-            _context.Reviews.Remove(plant);
+            var review = _context.Reviews.Where(r => r.ReviewId == id).SingleOrDefault();
+            _context.Reviews.Remove(review);
             _context.SaveChanges();
-            return Ok();
-        }
+            return Ok(review);
+        }   
     }
 }

@@ -28,7 +28,6 @@ namespace eCommerceStarterCode.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ShoppingCartId = table.Column<int>(type: "int", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -47,19 +46,6 @@ namespace eCommerceStarterCode.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Categories",
-                columns: table => new
-                {
-                    CategoryId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Categories", x => x.CategoryId);
                 });
 
             migrationBuilder.CreateTable(
@@ -169,27 +155,6 @@ namespace eCommerceStarterCode.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Reviews",
-                columns: table => new
-                {
-                    ReviewId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ReviewText = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ReviewRating = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Reviews", x => x.ReviewId);
-                    table.ForeignKey(
-                        name: "FK_Reviews_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Plants",
                 columns: table => new
                 {
@@ -198,8 +163,8 @@ namespace eCommerceStarterCode.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ReviewId = table.Column<int>(type: "int", nullable: true),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    Category = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Rating = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
@@ -211,34 +176,30 @@ namespace eCommerceStarterCode.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Plants_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
-                        principalColumn: "CategoryId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Plants_Reviews_ReviewId",
-                        column: x => x.ReviewId,
-                        principalTable: "Reviews",
-                        principalColumn: "ReviewId",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Products",
+                name: "Reviews",
                 columns: table => new
                 {
-                    ProductId = table.Column<int>(type: "int", nullable: false)
+                    ReviewId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    ReviewText = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ReviewRating = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     PlantId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.ProductId);
+                    table.PrimaryKey("PK_Reviews", x => x.ReviewId);
                     table.ForeignKey(
-                        name: "FK_Products_Plants_PlantId",
+                        name: "FK_Reviews_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Reviews_Plants_PlantId",
                         column: x => x.PlantId,
                         principalTable: "Plants",
                         principalColumn: "PlantId",
@@ -251,17 +212,25 @@ namespace eCommerceStarterCode.Migrations
                 {
                     ShoppingCartId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductId = table.Column<int>(type: "int", nullable: true)
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    PlantId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ShoppingCarts", x => x.ShoppingCartId);
                     table.ForeignKey(
-                        name: "FK_ShoppingCarts_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "ProductId",
+                        name: "FK_ShoppingCarts_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ShoppingCarts_Plants_PlantId",
+                        column: x => x.PlantId,
+                        principalTable: "Plants",
+                        principalColumn: "PlantId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -314,23 +283,13 @@ namespace eCommerceStarterCode.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Plants_CategoryId",
-                table: "Plants",
-                column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Plants_ReviewId",
-                table: "Plants",
-                column: "ReviewId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Plants_UserId",
                 table: "Plants",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_PlantId",
-                table: "Products",
+                name: "IX_Reviews_PlantId",
+                table: "Reviews",
                 column: "PlantId");
 
             migrationBuilder.CreateIndex(
@@ -339,9 +298,14 @@ namespace eCommerceStarterCode.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ShoppingCarts_ProductId",
+                name: "IX_ShoppingCarts_PlantId",
                 table: "ShoppingCarts",
-                column: "ProductId");
+                column: "PlantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShoppingCarts_UserId",
+                table: "ShoppingCarts",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -362,22 +326,16 @@ namespace eCommerceStarterCode.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Reviews");
+
+            migrationBuilder.DropTable(
                 name: "ShoppingCarts");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Products");
-
-            migrationBuilder.DropTable(
                 name: "Plants");
-
-            migrationBuilder.DropTable(
-                name: "Categories");
-
-            migrationBuilder.DropTable(
-                name: "Reviews");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
